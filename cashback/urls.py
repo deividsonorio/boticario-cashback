@@ -16,10 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt import views as jwt_views
+from rest_framework_simplejwt.views import TokenVerifyView
+import revendedor.views as views
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
+    path('hello/', views.HelloView.as_view(), name='hello'),
+    path('login/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('login/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
+    path('token/validar/', TokenVerifyView.as_view(), name='valida_token'),
+    path('revendedor/cadastro/', views.CreateRevendedor.as_view(), name='revendedor_cadastro'),
+    path('revendedor/valida_login/', views.ValidaLoginRevendedor.as_view(), name='revendedor_valida_login'),
+    # path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    # path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
 ]
