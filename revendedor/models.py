@@ -1,6 +1,7 @@
 from django.db import models
 from cpf_field.models import CPFField
 from django.contrib.auth.models import AbstractUser
+from django.utils.translation import gettext_lazy as _
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 
@@ -18,16 +19,14 @@ class Compra(models.Model):
     valor = models.DecimalField("valor", max_digits=8, decimal_places=2)
     data = models.DateField("data", auto_now_add=True)
 
-    VALIDATION = 'v'
-    APPROVED = 'A'
-    STATUS_OPCOES = [
-        (VALIDATION, 'Em validação'),
-        (APPROVED, 'Aprovado'),
-    ]
+    class Status(models.TextChoices):
+        VALIDATION = 'V', _('Em validação')
+        APPROVED = 'A', _('Aprovado')
+
     status = models.CharField(
-        max_length=2,
-        choices=STATUS_OPCOES,
-        default=VALIDATION,
+        max_length=1,
+        choices=Status.choices,
+        default=Status.VALIDATION,
     )
 
     porcentagem = \
