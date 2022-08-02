@@ -142,26 +142,26 @@ class AcumuladoCashback(APIView):
                 content = result.json()
                 return JsonResponse(content, safe=False)
         except requests.exceptions.MissingSchema as e:
-            logger.warning(f"URL: {url}. Houve um erro na URL da API: {e}")
+            logger.error(f"URL: {url}. Houve um erro na URL da API: {e}")
             content = {'statusCode': 500, 'body': {'message': f"Houve um erro na URL da API: {e}"}}
             return JsonResponse(content, safe=False, status=500)
         except requests.exceptions.RequestException as err:
-            logger.warning(f"URL: {url}. Houve um erro na requisição: {err}")
+            logger.error(f"URL: {url}. Houve um erro na requisição: {err}")
             content = {'statusCode': 400, 'body': {'message': f"Houve um erro na requisição: {err}"}}
             return JsonResponse(content, safe=False, status=400)
         except requests.exceptions.HTTPError as errh:
-            logger.warning(f"URL: {url}. Houve um erro http: {errh}")
+            logger.error(f"URL: {url}. Houve um erro http: {errh}")
             content = {'statusCode': 400, 'body': {'message': f"Houve um erro http: {errh}"}}
             return JsonResponse(content, safe=False, status=400)
         except requests.exceptions.ConnectionError as errc:
-            logger.warning(f"URL: {url}. Houve um erro de conexão: {errc}")
+            logger.error(f"URL: {url}. Houve um erro de conexão: {errc}")
             content = {'statusCode': 400, 'body': {'message': f"Houve um erro de conexão: {errc}"}}
             return JsonResponse(content, safe=False, status=400)
         except requests.exceptions.Timeout as errt:
-            logger.warning(f"URL: {url}. Timeout: {errt}")
+            logger.error(f"URL: {url}. Timeout: {errt}")
             content = {'statusCode': 400, 'body': {'message': f"Timeout: {errt}"}}
             return JsonResponse(content, safe=False, status=400)
 
-        logger.warning(f"URL: {url}. Houve um erro não identificado.")
+        logger.error(f"URL: {url}. Houve um erro não identificado.")
         content = {'statusCode': 400, 'body': {'message': "Houve um erro não identificado."}}
         return JsonResponse(content, safe=False, status=400)
