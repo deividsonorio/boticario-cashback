@@ -11,14 +11,15 @@ class Migration(migrations.Migration):
     def generate_superuser(apps, schema_editor):
         from revendedor.models import RevendedorUser
 
-        DJANGO_SUPERUSER_USERNAME = os.environ.get('DJANGO_SUPERUSER_USERNAME')
-        DJANGO_SUPERUSER_EMAIL = os.environ.get('DJANGO_SUPERUSER_EMAIL')
-        DJANGO_SUPERUSER_PASSWORD = os.environ.get('DJANGO_SUPERUSER_PASSWORD')
+        django_superuser_username = os.environ.get('DJANGO_SUPERUSER_USERNAME')
+        django_superuser_email = os.environ.get('DJANGO_SUPERUSER_EMAIL')
+        django_superuser_password = os.environ.get('DJANGO_SUPERUSER_PASSWORD')
 
         superuser = RevendedorUser.objects.create_superuser(
-            username=DJANGO_SUPERUSER_USERNAME,
-            email=DJANGO_SUPERUSER_EMAIL,
-            password=DJANGO_SUPERUSER_PASSWORD)
+            cpf=django_superuser_username,
+            username=django_superuser_username,
+            email=django_superuser_email,
+            password=django_superuser_password)
 
         superuser.save()
 
