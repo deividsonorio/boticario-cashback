@@ -10,17 +10,7 @@ from revendedor.serializer import RegisterSerializer, GroupSerializer, CompraVie
 from revendedor.models import Compra
 import requests
 import os
-
-
-class CreateRevendedor(APIView):
-    permission_classes = (IsAuthenticated,)
-
-    def post(self, request):
-        serializer = RegisterSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            content = {'message': "Revendedor salvo com sucesso"}
-            return JsonResponse(content, safe=False)
+import re
 
 
 class ValidaLoginRevendedor(APIView):
@@ -65,6 +55,8 @@ class CompraViewSet(viewsets.ModelViewSet):
         if "valor" in request.data:
             valor = float(request.data['valor'])
             data = self.define_cashback(valor, request.data)
+        if "revendedor" in request.data:
+            request.data['revendedor'] = re.sub("[^0-9]", "", request.data['revendedor'])
         serializer = CompraViewSerializer(data=data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
@@ -98,6 +90,15 @@ class RevendedoresViewSet(viewsets.ModelViewSet):
     queryset = RevendedorUser.objects.all().order_by('-date_joined')
     serializer_class = RegisterSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+    def create(self, request, *args, **kwargs):
+        if "cpf" in request.data:
+            request.data['cpf'] = re.sub("[^0-9]", "", request.data['cpf'])
+        serializer = RegisterSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 class GroupViewSet(viewsets.ModelViewSet):
