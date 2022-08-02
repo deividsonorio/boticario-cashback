@@ -1,10 +1,10 @@
-import numbers
+import os
+import re
 from django.contrib.auth.models import Group
 from rest_framework import serializers
 from revendedor.models import RevendedorUser, Compra
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
-import re
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -119,6 +119,7 @@ class CompraViewSerializer(serializers.ModelSerializer):
     codigo = serializers.CharField(required=True)
     data = serializers.DateField(required=True)
     valor = serializers.DecimalField(required=True, max_digits=8, decimal_places=2)
+    status = 'V'
 
     class Meta:
         model = Compra
@@ -130,12 +131,17 @@ class CompraViewSerializer(serializers.ModelSerializer):
         except RevendedorUser.DoesNotExist:
             raise serializers.ValidationError('Revendedor com este CPF não existe.')
 
+        cpf_cleaned = re.sub("[^0-9]", "", str(validated_data['revendedor']))
+        if cpf_cleaned == os.getenv('CPF_EXCEPTION'):
+            self.status = 'A'
+
         compra = Compra.objects.create(
             revendedor=revendedor_cpf,
             codigo=validated_data['codigo'],
             data=validated_data['data'],
             valor=validated_data['valor'],
             porcentagem=validated_data['porcentagem'],
+            status=self.status,
             valor_cashback=validated_data['valor_cashback'],
         )
         compra.save()
