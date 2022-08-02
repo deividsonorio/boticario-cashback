@@ -12,6 +12,7 @@ class RevendedorUser(AbstractUser):
 
 
 class Compra(models.Model):
+    REQUIRED_FIELDS = ['revendedor', 'codigo', 'valor', 'status']
     revendedor = models.ForeignKey(RevendedorUser, on_delete=models.CASCADE, to_field="cpf")
     codigo = models.CharField("código", max_length=100)
     valor = models.DecimalField("valor", max_digits=8, decimal_places=2)
@@ -37,3 +38,6 @@ class Compra(models.Model):
     @property
     def valor_display(self):
         return "R$%s" % self.valor
+
+    def __str__(self):
+        return self.codigo

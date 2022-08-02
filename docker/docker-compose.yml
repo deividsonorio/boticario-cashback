@@ -23,7 +23,7 @@ services:
       dockerfile: ./docker/app/Dockerfile
       target: dev
     restart: always
-    container_name: django
+    container_name: sistema
     depends_on:
       - db
     environment:
@@ -33,6 +33,18 @@ services:
       - DB_NAME=${DB_NAME}
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - DJANGO_SUPERUSER_PASSWORD=${DB_PASSWORD}
+      - DJANGO_SUPERUSER_EMAIL=${DB_PASSWORD}
+      - PURCHASE_TIER_1=${PURCHASE_TIER_1}
+      - PURCHASE_TIER_1_PERCENTAGE=${PURCHASE_TIER_1_PERCENTAGE}
+      - PURCHASE_TIER_2=${PURCHASE_TIER_2}
+      - PURCHASE_TIER_2_PERCENTAGE=${PURCHASE_TIER_2_PERCENTAGE}
+      - PURCHASE_TIER_3=${PURCHASE_TIER_3}
+      - PURCHASE_TIER_3_PERCENTAGE=${PURCHASE_TIER_3_PERCENTAGE}
+      - APPEND_SLASH=${APPEND_SLASH}
+      - BOTICARIO_API_URL=${BOTICARIO_API_URL}
+      - BOTICARIO_API_TOKEN=${BOTICARIO_API_TOKEN}
     volumes:
       - ../:/home/web/code
     ports:

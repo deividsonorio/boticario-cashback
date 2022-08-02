@@ -13,21 +13,24 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
 from django.urls import path, include
+from rest_framework import routers
 from rest_framework_simplejwt import views as jwt_views
 from rest_framework_simplejwt.views import TokenVerifyView
 import revendedor.views as views
 
+router = routers.DefaultRouter()
+router.register(r'api/revendedor', views.RevendedoresViewSet)
+router.register(r'api/grupo', views.GroupViewSet)
+router.register(r'api/compra', views.CompraViewSet)
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('hello/', views.HelloView.as_view(), name='hello'),
     path('login/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('login/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
     path('token/validar/', TokenVerifyView.as_view(), name='valida_token'),
-    path('revendedor/cadastro/', views.CreateRevendedor.as_view(), name='revendedor_cadastro'),
-    path('revendedor/valida_login/', views.ValidaLoginRevendedor.as_view(), name='revendedor_valida_login'),
-    # path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    # path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
+    path('login/validar/', views.ValidaLoginRevendedor.as_view(), name='revendedor_valida_login'),
+    path('api/revendedor/cashback', views.AcumuladoCashback.as_view(), name='revendedor_cashback'),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('', include(router.urls))
 ]

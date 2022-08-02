@@ -1,7 +1,7 @@
 import numbers
-
+from django.contrib.auth.models import Group
 from rest_framework import serializers
-from revendedor.models import RevendedorUser
+from revendedor.models import RevendedorUser, Compra
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
 import re
@@ -107,3 +107,37 @@ class RegisterSerializer(serializers.ModelSerializer):
         if cpf[-2:] == "%s%s" % (first_verifying_digit, second_verifying_digit):
             return cpf
         raise serializers.ValidationError('CPF inválido.')
+
+
+class GroupSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Group
+        fields = ['url', 'name']
+
+
+class CompraViewSerializer(serializers.ModelSerializer):
+    codigo = serializers.CharField(required=True)
+    data = serializers.DateField(required=True)
+    valor = serializers.DecimalField(required=True, max_digits=8, decimal_places=2)
+
+    class Meta:
+        model = Compra
+        fields = ('revendedor', 'codigo', 'data', 'valor', 'status', 'porcentagem', 'valor_cashback')
+
+    def create(self, validated_data):
+        try:
+            revendedor_cpf = RevendedorUser.objects.get(cpf=validated_data['revendedor'])
+        except RevendedorUser.DoesNotExist:
+            raise serializers.ValidationError('Revendedor com este CPF não existe.')
+
+        compra = Compra.objects.create(
+            revendedor=revendedor_cpf,
+            codigo=validated_data['codigo'],
+            data=validated_data['data'],
+            valor=validated_data['valor'],
+            porcentagem=validated_data['porcentagem'],
+            valor_cashback=validated_data['valor_cashback'],
+        )
+        compra.save()
+
+        return compra
