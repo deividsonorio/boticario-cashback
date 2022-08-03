@@ -97,7 +97,7 @@ Para fins de teste, um super usuário é criado automaticamente ao iniciar a apl
 
 # API REST
 
-Aqui estão exemplos de chamadas cURL para os endpoints. Você também pode usar o HTTPie para consumir os endpoints da API por meio do terminal.
+Aqui estão exemplos de chamadas cURL para os endpoints. Você também pode utilizar outros métodos para consumir os endpoints como o HTTPie ou Postman.
 
 ![Imagem da tela de_login_django](./readme_images/login_curl.png?raw=true "Imagem da tela inicial da API")
 
