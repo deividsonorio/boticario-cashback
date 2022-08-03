@@ -126,17 +126,16 @@ class CompraViewSerializer(serializers.ModelSerializer):
         fields = ('revendedor', 'codigo', 'data', 'valor', 'status', 'porcentagem', 'valor_cashback')
 
     def create(self, validated_data):
-        try:
-            revendedor_cpf = RevendedorUser.objects.get(cpf=validated_data['revendedor'])
-        except RevendedorUser.DoesNotExist:
+        cpf = validated_data['revendedor'].cpf
+        exists = RevendedorUser.objects.filter(username=cpf).count()
+        if exists == 0:
             raise serializers.ValidationError('Revendedor com este CPF não existe.')
 
-        cpf_cleaned = re.sub("[^0-9]", "", str(validated_data['revendedor']))
-        if cpf_cleaned == os.getenv('CPF_EXCEPTION'):
+        if validated_data['revendedor'].cpf == os.getenv('CPF_EXCEPTION'):
             self.status = 'A'
 
         compra = Compra.objects.create(
-            revendedor=revendedor_cpf,
+            revendedor=validated_data['revendedor'],
             codigo=validated_data['codigo'],
             data=validated_data['data'],
             valor=validated_data['valor'],

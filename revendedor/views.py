@@ -63,6 +63,7 @@ class CompraViewSet(viewsets.ModelViewSet):
             data = self.define_cashback(valor, request.data)
         if "revendedor" in request.data:
             request.data['revendedor'] = re.sub("[^0-9]", "", request.data['revendedor'])
+        print(request.data['revendedor'])
         serializer = CompraViewSerializer(data=data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
