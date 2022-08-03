@@ -11,6 +11,9 @@ class RevendedorUser(AbstractUser):
     cpf = CPFField('cpf', unique=True)
     REQUIRED_FIELDS = ['username']
 
+    def __str__(self):
+        return "{{'nome_completo': {0}, 'cpf': {1}}}".format(self.username, self.cpf)
+
 
 class Compra(models.Model):
     REQUIRED_FIELDS = ['revendedor', 'codigo', 'valor', 'status']
