@@ -5,7 +5,20 @@
 
 # Desafio Boticário
 
-Disponibilizar um sistema para seus revendedores(as) cadastrarem suas compras e acompanhar o retorno de cashback de cada um.
+*O Boticário tem várias soluções para ajudar seus revendedores(as) a gerir suas finanças e
+alavancar suas vendas. Também existem iniciativas para impulsionar as operações de vendas
+como metas gameficadas e desconto em grandes quantidades de compras.*
+
+*Agora queremos criar mais uma solução, e é aí que você entra com seu talento ;)*
+
+*A oportunidade proposta é criar um sistema de Cashback, onde o valor será disponibilizado
+como crédito para a próxima compra da revendedora no Boticário;*
+
+*Cashback quer dizer “dinheiro de volta”, e funciona de forma simples: o revendedor faz uma
+compra e seu benefício vem com a devolução de parte do dinheiro gasto no mês seguinte.*
+
+*Sendo assim o Boticário quer disponibilizar um sistema para seus revendedores(as)
+cadastrarem suas compras e acompanhar o retorno de cashback de cada um.*
 
 ## Requisitos técnicos obrigatórios
 - Nodejs ou Python
@@ -41,7 +54,7 @@ Disponibilizar um sistema para seus revendedores(as) cadastrarem suas compras e 
 ## Tecnologias utilizadas
 
 - Python 3.10
-- Django 4
+- Django 4.0.6
 - REST
 - JWT
 - PostgreSQL
