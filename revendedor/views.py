@@ -120,9 +120,9 @@ class AcumuladoCashback(APIView):
     """
     API endpoint that allows groups to be viewed or edited.
     """
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = (IsAuthenticated,)
 
-    def get(self, request):
+    def post(self, request):
         data = request.data
 
         # Parametros obrigatórios
