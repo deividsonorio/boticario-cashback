@@ -82,7 +82,7 @@ docker-compose up -d
 
 <br>
 
-**OBS**: será necessário um usuário e senha para o o acesso aos endpoints.
+**OBS**: será necessário um token de autenticação (JWT) para o acesso aos endpoints.
 
 Para fins de teste, um super usuário é criado automaticamente ao iniciar a aplicação:
 
