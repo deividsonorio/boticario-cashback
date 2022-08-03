@@ -178,25 +178,25 @@ Atendendo a um requisito, o login pode ser validado através deste endpoint.
 curl -H 'Content-Type: application/json' -d '{"refresh":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU5NjIzMDExLCJpYXQiOjE2NTk1MzY2MTEsImp0aSI6IjBjODM3NTkzNjhkZTRlY2U4MzBlYzc2Y2RjZjRlOTViIiwidXNlcl9pZCI6MX0.pEC0PF4ErBOJhh40bqnSczEi_O5i8QcpanGoLeyxhzY"}' -X POST http://localhost:8000/login/refresh/
 ~~~~
 
-Respota status 200
+Respota para login válido: **status 200**
 ~~~json
 {
-"statusCode": 200,
-"body": {
-"message": "Login válido",
-"valid": true
-}
+    "statusCode": 200,
+    "body": {
+        "message": "Login válido",
+        "valid": true
+    }
 }
 ~~~
 
-Respota login errado (inválido): status 200
+Respota para login inválido: **status 200**
 ~~~json
 {
-"statusCode": 200,
-"body": {
-"message": "Login inválido",
-"valid": false
-}
+    "statusCode": 200,
+    "body": {
+        "message": "Login inválido",
+        "valid": false
+    }
 }
 ~~~
 
@@ -232,18 +232,18 @@ Exemplo de retorno
     "previous": null,
     "results": [
         {
-        "email": "teste@testx9x9.com",
-        "first_name": "nome",
-        "last_name": "de testa salvamento mais um teste de novo",
-        "cpf": "03860313983",
-        "nome_completo": "nome de testa salvamento mais um teste de novo"
+            "email": "teste@boticario.com.br",
+            "first_name": "Nome",
+            "last_name": "Teste",
+            "cpf": "47352849076",
+            "nome_completo": "Nome Teste"
         },
         {
             "email": "teste@boticario.com",
             "first_name": "",
             "last_name": "",
             "cpf": "08360313938",
-            "nome_completo": ""
+            "nome_completo": "Nome Teste2"
         }
     ]
 }
@@ -270,10 +270,10 @@ cURL Cadastro
 --header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU5NjMwNDYzLCJpYXQiOjE2NTk1NDQwNjMsImp0aSI6ImNiOGI3MWNkYzAwZDRmNTI4ZjVlNGQyOGMzNWM0MzZhIiwidXNlcl9pZCI6MX0.MiuOQmY49GZqo97F57dNMeSIo3koKWzWN9HOaHFwlxU' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "nome_completo": "nome de testa salvamento mais um teste de novo",
+    "nome_completo": "Nome Teste",
     "cpf": "17415458036",
-    "email": "teste@testx9xc9.com",
-    "password": "Deivid-123"
+    "email": "teste@boticario.com.br",
+    "password": "TB-teste-123"
 }'
 ~~~~
 
