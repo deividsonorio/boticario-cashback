@@ -27,20 +27,6 @@ cadastrarem suas compras e acompanhar o retorno de cashback de cada um.*
 
 ## Funcionalidades e diferenciais
 
-- **Login JWT**
-- **Validação de login**
-- **Refresh token**
-- **Cadastro de Revendedores**
-- **Cadastro de Compra**
-- **Consulta cashback (API externa como pedido)**
-- **Testes**
-- **Migrations**
-- **Logs**
-- **Dockerizado**
-
-
-## Recursos
-
 - [x] Login JWT
 - [x] Validação de login
 - [x] Refresh token
@@ -50,6 +36,7 @@ cadastrarem suas compras e acompanhar o retorno de cashback de cada um.*
 - [x] Testes
 - [x] Migrations
 - [x] Logs
+- [x] Docker facilitando subir os ambientes 
 
 ## Tecnologias utilizadas
 
@@ -344,3 +331,13 @@ docker container exec -ti sistema python manage.py test
 # Logs
 Os logs são salvos automaticamente na pasta **/logs** na raiz da aplicação.
 No momento eles estão definidos com o nível <span style="color:ORANGE">*WARNING*</span>.
+
+# Produção
+
+**Este não é o foco deste desenvolvimento**, mas está disponível um ambiente para produção, utilizando o **Guicorn**.
+
+Pode-se criar a imagem com o comando:
+
+~~~bash
+docker run -it -p 8020:8020 cashback_prod
+~~~
