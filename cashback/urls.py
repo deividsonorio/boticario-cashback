@@ -30,7 +30,7 @@ urlpatterns = [
     path('login/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
     path('token/validar/', TokenVerifyView.as_view(), name='valida_token'),
     path('login/validar/', views.ValidaLoginRevendedor.as_view(), name='revendedor_valida_login'),
-    path('api/revendedor/cashback', views.AcumuladoCashback.as_view(), name='revendedor_cashback'),
+    path('api/revendedor/cashback/', views.AcumuladoCashback.as_view(), name='revendedor_cashback'),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('', include(router.urls))
 ]
