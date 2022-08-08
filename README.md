@@ -175,7 +175,13 @@ Atendendo a um requisito, o login pode ser validado através deste endpoint.
 
 `GET /login/validar/`
 ~~~~bash
-curl -H 'Content-Type: application/json' -d '{"refresh":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU5NjIzMDExLCJpYXQiOjE2NTk1MzY2MTEsImp0aSI6IjBjODM3NTkzNjhkZTRlY2U4MzBlYzc2Y2RjZjRlOTViIiwidXNlcl9pZCI6MX0.pEC0PF4ErBOJhh40bqnSczEi_O5i8QcpanGoLeyxhzY"}' -X POST http://localhost:8000/login/refresh/
+ curl --location --request GET 'http://localhost:8000/login/validar/'
+--header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU5NjIzMDExLCJpYXQiOjE2NTk1MzY2MTEsImp0aSI6IjBjODM3NTkzNjhkZTRlY2U4MzBlYzc2Y2RjZjRlOTViIiwidXNlcl9pZCI6MX0.pEC0PF4ErBOJhh40bqnSczEi_O5i8QcpanGoLeyxhzY'
+--header 'Content-Type: application/json'
+--data-raw '{
+    "login": "08360313938",
+    "senha": "teste123"
+}'
 ~~~~
 
 Respota para login válido: **status 200**
