@@ -171,3 +171,5 @@ LOGGING = {
         },
     },
 }
+
+DATE_INPUT_FORMATS = os.getenv("DATE_INPUT_FORMATS")
