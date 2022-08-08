@@ -1,3 +1,5 @@
+import os
+
 from django.db import models
 from cpf_field.models import CPFField
 from django.contrib.auth.models import AbstractUser
@@ -20,7 +22,7 @@ class Compra(models.Model):
     revendedor = models.ForeignKey(RevendedorUser, on_delete=models.CASCADE, to_field="cpf")
     codigo = models.CharField("código", max_length=100)
     valor = models.DecimalField("valor", max_digits=8, decimal_places=2)
-    data = models.DateField("data", auto_now_add=True)
+    data = models.DateField("data")
 
     class Status(models.TextChoices):
         VALIDATION = 'V', _('Em validação')

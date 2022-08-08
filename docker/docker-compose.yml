@@ -48,6 +48,7 @@ services:
       - BOTICARIO_API_TOKEN=${BOTICARIO_API_TOKEN}
       - CPF_EXCEPTION=${CPF_EXCEPTION}
       - DJANGO_LOG_LEVEL=${DJANGO_LOG_LEVEL}
+      - DATE_INPUT_FORMATS=${DATE_INPUT_FORMATS}
     volumes:
       - ../:/home/web/code
     ports:
