@@ -1,0 +1,116 @@
+### LOGIN
+# curl -X POST -H "Content-Type: application/json" -d '{"cpf": "08360313938", "password": "teste123"}' http://localhost:8000/login/
+POST http://localhost:8000/login/
+Content-Type: application/json
+
+{
+  "cpf": "{{cpf}}",
+  "password": "{{password}}"
+}
+
+### VALIDAR TOKEN
+#{
+#  "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY2MDA0ODc4NSwiaWF0IjoxNjU5OTYyMzg1LCJqdGkiOiI5YTg4Mjg3Zjk2ZmY0YjUwYmI1ZGRlNDJhMDFhMzc0YSIsInVzZXJfaWQiOjF9.w6kI1LGKxJ6_HJm_tRSo5L-CW7efDCV_sA-jnR_mILg",
+#  "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjYwMDQ4Nzg1LCJpYXQiOjE2NTk5NjIzODUsImp0aSI6Ijc3NzM3YmVmZTg0NjQyZjNiNTA5OTc1OTYwMTc2NDYyIiwidXNlcl9pZCI6MX0.HhXWjjYbgCXErb2KMl9TD4tTh9Na_fbhWR50U8sItNo"
+#}
+
+# curl -H 'Content-Type: application/json' -d '{"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjYwMDQ4Nzg1LCJpYXQiOjE2NTk5NjIzODUsImp0aSI6Ijc3NzM3YmVmZTg0NjQyZjNiNTA5OTc1OTYwMTc2NDYyIiwidXNlcl9pZCI6MX0.HhXWjjYbgCXErb2KMl9TD4tTh9Na_fbhWR50U8sItNo"}' -X POST http://localhost:8000/token/validar/
+POST http://localhost:8000/token/validar/
+Content-Type: application/json
+
+{"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjYwMDQ4Nzg1LCJpYXQiOjE2NTk5NjIzODUsImp0aSI6Ijc3NzM3YmVmZTg0NjQyZjNiNTA5OTc1OTYwMTc2NDYyIiwidXNlcl9pZCI6MX0.HhXWjjYbgCXErb2KMl9TD4tTh9Na_fbhWR50U8sItNo"}
+
+
+
+### REFRESH
+# curl -H 'Content-Type: application/json' -d '{"refresh":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjYwMDQ4Nzg1LCJpYXQiOjE2NTk5NjIzODUsImp0aSI6Ijc3NzM3YmVmZTg0NjQyZjNiNTA5OTc1OTYwMTc2NDYyIiwidXNlcl9pZCI6MX0.HhXWjjYbgCXErb2KMl9TD4tTh9Na_fbhWR50U8sItNo"}' -X POST http://localhost:8000/login/refresh/
+POST http://localhost:8000/login/refresh/
+Content-Type: application/json
+
+{
+  "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY2MDA0ODc4NSwiaWF0IjoxNjU5OTYyMzg1LCJqdGkiOiI5YTg4Mjg3Zjk2ZmY0YjUwYmI1ZGRlNDJhMDFhMzc0YSIsInVzZXJfaWQiOjF9.w6kI1LGKxJ6_HJm_tRSo5L-CW7efDCV_sA-jnR_mILg"
+}
+
+
+### VALIDAR LOGIN
+# curl --location --request GET 'http://localhost:8000/login/validar/'
+#--header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU5NjIzMDExLCJpYXQiOjE2NTk1MzY2MTEsImp0aSI6IjBjODM3NTkzNjhkZTRlY2U4MzBlYzc2Y2RjZjRlOTViIiwidXNlcl9pZCI6MX0.pEC0PF4ErBOJhh40bqnSczEi_O5i8QcpanGoLeyxhzY'
+#--header 'Content-Type: application/json'
+#--data-raw '{
+#    "login": "08360313938",
+#    "senha": "teste123"
+#}'
+GET http://localhost:8000/login/validar/
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "login": "{{cpf}}",
+  "senha": "{{password}}"
+}
+
+### LISTA REVENDEDORES
+# curl -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU5NjIzMDExLCJpYXQiOjE2NTk1MzY2MTEsImp0aSI6IjBjODM3NTkzNjhkZTRlY2U4MzBlYzc2Y2RjZjRlOTViIiwidXNlcl9pZCI6MX0.pEC0PF4ErBOJhh40bqnSczEi_O5i8QcpanGoLeyxhzY" http://localhost:8000/api/revendedor/
+GET http://localhost:8000/api/revendedor/
+Authorization: Bearer {{token}}
+
+
+### CADASTRO REVENDEDOR
+# curl --location --request POST 'http://localhost:8000/api/revendedor/'
+#--header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU5NjMwNDYzLCJpYXQiOjE2NTk1NDQwNjMsImp0aSI6ImNiOGI3MWNkYzAwZDRmNTI4ZjVlNGQyOGMzNWM0MzZhIiwidXNlcl9pZCI6MX0.MiuOQmY49GZqo97F57dNMeSIo3koKWzWN9HOaHFwlxU'
+#--header 'Content-Type: application/json'
+#--data-raw '{
+#    "nome_completo": "Nome Teste",
+#    "cpf": "17415458036",
+#    "email": "teste@boticario.com.br",
+#    "password": "TB-teste-123"
+#}'
+POST http://localhost:8000/api/revendedor/
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "nome_completo": "Nome Teste",
+  "cpf": "17415458036",
+  "email": "teste@boticario.com.br",
+  "password": "TB-teste-123"
+}
+
+
+### LISTA COMPRAS
+# curl --location --request GET 'http://localhost:8000/api/compra/'
+#--header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU5NjMwNDYzLCJpYXQiOjE2NTk1NDQwNjMsImp0aSI6ImNiOGI3MWNkYzAwZDRmNTI4ZjVlNGQyOGMzNWM0MzZhIiwidXNlcl9pZCI6MX0.MiuOQmY49GZqo97F57dNMeSIo3koKWzWN9HOaHFwlxU'
+#--header 'Content-Type: application/json'
+GET http://localhost:8000/api/compra/
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+### CADASTRO COMPRAS
+# curl --location --request POST 'http://localhost:8000/api/compra/'
+#--header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU5NjMwNDYzLCJpYXQiOjE2NTk1NDQwNjMsImp0aSI6ImNiOGI3MWNkYzAwZDRmNTI4ZjVlNGQyOGMzNWM0MzZhIiwidXNlcl9pZCI6MX0.MiuOQmY49GZqo97F57dNMeSIo3koKWzWN9HOaHFwlxU'
+#--header 'Content-Type: application/json'
+#--data-raw '{
+#    "revendedor": "153.509.460-56",
+#    "codigo": "123",
+#    "data": "2022-01-01",
+#    "valor": "2000"
+#}'
+POST http://localhost:8000/api/compra/
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "revendedor": "{{cpf}}",
+  "codigo": "123",
+  "data": "2022-01-01",
+  "valor": "2000"
+}
+
+###
+
+
+
+
+
+
+
